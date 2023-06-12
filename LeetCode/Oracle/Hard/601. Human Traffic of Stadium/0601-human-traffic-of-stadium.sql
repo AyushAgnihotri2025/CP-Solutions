@@ -1,0 +1,2 @@
+/* Write your PL/SQL query statement below */
+SELECT id, TO_CHAR(visit_date,'yyyy-mm-dd') AS visit_date, people FROM(SELECT id, visit_date, people, lag(people) over(order by id) prv_people, lag(people,2) over(order by id) prv_prv_people, lead(people) over(order by id) next_people, lead(people, 2) over(order by id) next_next_people FROM Stadium) WHERE (people >=100 AND next_people >= 100 AND (next_next_people >=100 OR prv_people >=100)) OR (prv_people >=100 AND prv_prv_people >= 100 AND people >=100);
